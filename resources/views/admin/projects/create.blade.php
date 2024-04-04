@@ -30,11 +30,26 @@
                     @enderror
                 </div>
 
-                <div class="col-12">
+                <div class="col-6">
                     <label for="project_link" class="form-label">Link al progetto</label>
                     <input type="url" class="form-control @error('project_link') is-invalid @enderror" id="project_link"
                         name="project_link" value="{{ old('project_link') }}">
                     @error('project_link')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-6">
+                    <label for="type_id" class="form-label">Tipologia di progetto</label>
+                    <select name="type_id" id="type_id" class='form-select @error('type_id') is-invalid @enderror'>
+                        <option value="" class="d-none">Seleziona una tipologia</option>
+                        @foreach ($types as $type)
+                            <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
+                                {{ $type->type }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('type_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

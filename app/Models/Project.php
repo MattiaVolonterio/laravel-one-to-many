@@ -18,6 +18,7 @@ class Project extends Model
         'title',
         'author',
         'description',
-        'project_link'
+        'project_link',
+        'type_id'
     ];
 }
