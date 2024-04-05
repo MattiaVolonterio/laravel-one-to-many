@@ -31,10 +31,10 @@
                                     class="fa-solid fa-eye"></i></a>
                             <a href="{{ route('admin.types.edit', $type) }}" class="me-2"><i
                                     class="fa-solid fa-pen-to-square"></i></a>
-                            {{-- <button type="button" class="modal-button" data-bs-toggle="modal"
-                            data-bs-target="#delete-project-{{ $project->id }}">
-                            <i class="fa-solid fa-circle-xmark" style="color: red;"></i>
-                        </button> --}}
+                            <button type="button" class="modal-button" data-bs-toggle="modal"
+                                data-bs-target="#delete-type-{{ $type->id }}">
+                                <i class="fa-solid fa-circle-xmark" style="color: red;"></i>
+                            </button>
                         </td>
                     </tr>
                 @empty
@@ -47,6 +47,33 @@
 
         {{ $types->links() }}
     </div>
+@endsection
+
+@section('modal')
+    @foreach ($types as $type)
+        <div class="modal fade" id="delete-type-{{ $type->id }}" tabindex="-1"
+            aria-labelledby="delete-type-{{ $type->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminare tipo {{ $type->type }}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Premendo elimina l'azione sarà irreversibile. Procedere?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <form action="{{ route('admin.types.destroy', $type) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" value="Elimina">Elimina</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 
 @section('css')
